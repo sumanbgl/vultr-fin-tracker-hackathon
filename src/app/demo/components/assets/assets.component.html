@@ -1,0 +1,72 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h5>Bank Statements</h5>
+            <input type="file" class="hidden" (change)="onBrowseFile($event)" #fileSelector />
+            <p-toolbar *ngFor="let statement  of bankStatements; index as i">
+                <div class="p-toolbar-group-left flex flex-wrap">
+                    
+                    
+                    <button pButton type="button" label="Browse" (click)="selectFile(i)" icon="pi pi-folder-open" class="p-button-secondary mr-2">
+                        
+                    </button>
+
+                    <input pInputText id="name3" type="text" [ngModel]="statement.fileName" readonly/>
+
+                     <!-- <button pButton type="button" icon="pi pi-check" class="p-button-success mr-2"></button>
+                    <button pButton type="button" icon="pi pi-trash" class="p-button-warning mr-2"></button>
+                    <button pButton type="button" icon="pi pi-print" class="p-button-danger"></button> -->
+                </div>
+                <div class="p-toolbar-group-right">
+                    <button type="text" (click)="remove(i)" *ngIf="bankStatements.length>1" pButton icon="pi pi-trash" label="Delete" class="p-button-danger" style="width:auto; margin-right: 4px;"></button>
+                    <button pButton type="button" *ngIf="i == bankStatements.length-1" (click)="addMore()" label="Add More" icon="pi pi-plus" class="mr-2"></button>
+                </div>
+            </p-toolbar>
+            <p-toolbar>
+                <div class="p-toolbar-group-right">
+                    
+                    <button pButton type="button" label="Upload All" icon="pi pi-file-export" class="mr-2"></button>
+
+                     <!-- <button pButton type="button" icon="pi pi-check" class="p-button-success mr-2"></button>
+                    <button pButton type="button" icon="pi pi-trash" class="p-button-warning mr-2"></button>
+                    <button pButton type="button" icon="pi pi-print" class="p-button-danger"></button> -->
+                </div>
+            </p-toolbar>
+        </div>
+    </div>
+
+   
+        
+        <div class="col-12">
+            <div class="card">
+                <h5>Assets Library</h5>
+                <p-table [value]="assetsLists" scrollDirection="both" [scrollable]="true" scrollHeight="400px" styleClass="mt-3" responsiveLayout="scroll">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width:200px" >Folio Id</th>
+                            <th style="width:200px">Name</th>
+                            <th style="width:200px">Previous Balance</th>
+                            <th style="width:200px">Current Balance</th>
+                            <th style="width:200px">Status</th>
+                            <th style="width:200px">Published On</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-assets>
+                        <tr>
+                            <td style="width:200px"  class="font-bold">{{assets.id}}</td>
+                            <td style="width:200px" >{{assets.name}}</td>
+                            <td style="width:200px">
+                                {{assets.prevBal}}
+                            </td>
+                            <td style="width:200px">{{assets.currentBal}}</td>
+                            <td style="width:200px">{{assets.publishedOn}}</td>
+                            <td style="width:200px">
+                                <span [class]="'customer-badge status-' + assets.status">{{assets.status}}</span>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    
+</div>
